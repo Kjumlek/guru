@@ -1,0 +1,497 @@
+:root {
+    --primary: rgb(34, 32, 29);
+    --head: rgb(44, 42, 38);
+    --head2: rgb(36, 34, 31);
+    --text: rgb(0, 255, 13);
+    --text2: rgb(167, 167, 167);
+    --border: rgb(31, 37, 31);
+    --border2: rgb(53, 59, 53);
+    --sand: rgb(153, 153, 153);
+}
+
+
+/* orbitron-regular - latin */
+@font-face {
+    font-family: 'Orbitron';
+    font-style: normal;
+    font-weight: 400;
+    src: local(''),
+         url('../fonts/orbitron-v15-latin-regular.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+         url('../fonts/orbitron-v15-latin-regular.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+  }
+
+/* electrolize-regular - latin */
+@font-face {
+    font-family: 'Electrolize';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Electrolize'), local('Electrolize-Regular'),
+         url('../fonts/electrolize-v8-latin-regular.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+         url('../fonts/electrolize-v8-latin-regular.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+  }
+  
+/* jura-regular - latin */
+@font-face {
+    font-family: 'Jura';
+    font-style: normal;
+    font-weight: 400;
+    src: local(''),
+         url('../fonts/jura-v14-latin-regular.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+         url('../fonts/jura-v14-latin-regular.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+  }
+  
+
+*{
+    /* border: 1px solid black; */
+    font-family: 'Orbitron';
+    
+}
+
+
+body{
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: var(--primary);
+}
+header{
+    margin-bottom: .5rem;
+}
+h1, p{
+    margin-top: .5rem;
+}
+h1{
+    font-size: 3rem;
+}
+h2{
+    padding: 0.5rem 1rem;
+    border-bottom: 3px solid var(--border);
+    font-size: 1.8rem;
+    color: var(--text);
+}
+h3{
+    padding-bottom: .5rem;
+    font-size: 2rem;
+    color: var(--text);
+}
+p{
+    font-size: 2.5rem;
+}
+
+nav{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 2rem;
+    background-color: var(--head);
+    color: var(--text);
+}
+
+/*///////////////////////////////////////////////////////*/
+/*Design Burger Button*/
+/*//////////////////////////////////////////////////////*/
+.toggle-menu{
+    position: relative;
+    width: 5.5rem;
+    height: 4.4rem;
+    padding: 2rem 1rem;
+    border: 0;
+    background-color: var(--sand);
+    background-clip: content-box;
+    cursor: pointer;
+    transition: background-color .3s ease-in-out;
+}
+.toggle-menu::before,
+.toggle-menu::after {
+    content: '';
+    position: absolute;
+    left: 1rem;
+    right: 1rem;
+    height: 0.4rem;
+    background-color: var(--sand);
+    transition: .3s ease-in-out;
+    /* transform-origin: .1rem; */
+}
+.toggle-menu::before{
+    top: 1rem;
+}
+.toggle-menu::after{
+    bottom: 1rem;
+}
+.toggle-menu[aria-expanded="true"]{
+    background-color: rgba(255,255,255,0);
+}
+
+.toggle-menu[aria-expanded="true"]::before  {
+    transform: rotate(45deg);
+    transform-origin: .1rem;
+}
+.toggle-menu[aria-expanded="true"]::after  {
+    transform: rotate(-45deg);
+    transform-origin: .1rem;
+}
+/*//////////////////////////////////////////////////////*/
+
+
+
+/*///////////////////////////////////////////////////////*/
+/*Design Burger Button*/
+/*//////////////////////////////////////////////////////*/
+.toggle-users{
+    position: relative;
+    width: 6.7rem;
+    height: 4.4rem;
+    /* padding: 2rem 1rem; */
+    border: 0;
+    background-color: transparent;
+    background-clip: content-box;
+    background-image: url(/svg/profile-picture.svg);
+    background-size: initial;
+    background-repeat: no-repeat;
+    background-position: center;
+    cursor: pointer;
+    transition: background-color .3s ease-in-out;
+}
+/*//////////////////////////////////////////////////////*/
+
+/* Largeur > 576px */
+@media screen and (min-width: 36em) {
+    .menu{
+        display: flex;
+        position: static;
+        flex-direction: column;
+        justify-content: flex-start;
+        transform: translateY(0);
+        z-index: 2;
+    }
+    .toggle-menu{
+        display: none;
+    }
+    .toggle-users{
+        display: none;
+    }
+}
+
+.container{
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.sub-container{
+    margin-left: .5rem;
+    margin-right: .5rem;
+    display: grid;
+    grid-template-columns: 40% 25% auto 0rem;
+    
+    background-color: var(--head);
+    transition: .3s linear;
+}
+.sub-container:not([hidden]){
+    grid-template-columns: 0% 50% 50% 0px;
+}
+
+.channels{
+    grid-column: span 1;
+    margin-bottom: 3rem;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    border-right: 2px solid var(--border);
+    overflow: hidden;
+}
+/*Largeur > 576px*/
+@media screen and (min-width: 36em){
+    .sub-container:not([hidden]){
+        grid-template-columns: 14rem 25% auto 16rem;
+        margin-left: 2rem;
+        margin-right: 2rem;
+    }
+    .channels{
+        grid-column: span 1;
+        flex-direction: column;
+    }
+}
+.menu-title{
+    width: 24rem;
+}
+
+
+.channel-index{
+    color: var(--text2);
+    display: block;
+    text-decoration: none;
+    font-size: 1.5rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    padding-left: .5rem;;
+}
+.channel-index:hover,
+.channel-index:focus{
+    background-color: var(--border);
+    color: rgb(255, 255, 255);
+}
+
+.channels-list{
+    border-bottom: 1px solid rgb(44, 47, 75);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+
+}
+/*Largeur > 576px*/
+@media screen and (min-width: 36em){
+    .channels-list{
+        flex-direction: column;
+    
+    }
+}
+/*Largeur > 768px*/
+@media screen and (min-width: 48em){
+
+}
+/*Largeur > 992px*/
+@media screen and (min-width: 62em){
+
+}
+/*Largeur > 1200px*/
+@media screen and (min-width: 75em){
+
+}
+
+
+.chatBox{
+    grid-column: span 2;
+    display: flex;
+    flex-direction: column;
+    max-height: 90vh;
+    margin-bottom: 0;
+}
+/*Largeur > 576px*/
+@media screen and (min-width: 36em){
+    .chatBox{
+        grid-column: span 2;
+        order: 2;
+        height: 88vh;
+    }
+}
+.header-phone{
+    display: flex;
+    justify-content: space-between;
+}
+.chatBox-title{
+    width: 100%;
+}
+.boxView{
+    width: 100%;
+    overflow: scroll;
+    min-height: 0%;
+    max-height: 70%;
+    padding: 0 1rem;
+}
+/*Largeur > 576px*/
+@media screen and (min-width: 36em){
+    .boxView{
+        min-height: 54%;
+    }
+}
+
+.messages{
+    width: 100%;
+    display: flex;
+    flex-direction: column-reverse;
+    /* flex-wrap: wrap-reverse;
+    flex-direction: row-reverse; */
+}
+
+.card{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    border: 2px solid var(--border2);
+    border-radius: 0% 20% 0% 20%;
+    margin-top: 1rem;
+    padding: .5rem 1rem;
+    background-color: var(--primary);
+    
+}
+.card2{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    border: 2px solid var(--border2);
+    border-radius: 0% 20px 0% 20px;
+    margin-top: 1rem;
+    padding: .5rem 1rem;
+    background-color: var(--primary);
+    
+}
+
+.card-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    border-bottom: 1px solid var(--border2);
+    padding-bottom: 0;
+    
+}
+
+.card-title{
+    font-weight: 400;
+    margin-bottom: 0;
+    color: var(--sand);
+    font-family: 'Electrolize';
+    font-size: 1.7rem;
+}
+
+.card-body{
+    padding: 0rem 0;
+}
+
+.card-text{
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: #fff;
+    padding: 0;
+    margin: 0;
+    font-family: 'Jura';
+}
+.card-sub{
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+    width: 100%;
+    border-top: 1px solid var(--border2);
+    padding-top: .5rem;
+    margin: 0;
+}
+.card-like{
+    font-size: 1rem;
+    font-weight: 400;
+    color: var(--sand);
+    margin: 0 1rem;
+    font-family: 'Electrolize';
+    font-size: 1.3rem;
+    display: inline-flex;
+    justify-content: end;
+}
+.card-like-button{
+    background-color: transparent;
+    background-image: url('/svg/heart.svg');
+    background-repeat: no-repeat;
+    /* border: none; */
+    height: 18px;
+    width: 18px;
+    display: inline-flex;
+    align-self: end;
+}
+.card-dislike-button{
+    background-color: transparent;
+    background-image: url('/svg/heartbreak.svg');
+    background-repeat: no-repeat;
+    /* border: none; */
+    height: 18px;
+    width: 18px;
+    display: inline-flex;
+    align-self: end;
+    margin-left: .5rem;
+}
+.card-comment-button{
+    background-color: transparent;
+    background-image: url('/svg/write.svg');
+    background-size: cover;
+    /* border: none; */
+    height: 18px;
+    width: 18px;
+    display: inline-flex;
+    align-self: end;
+}
+
+.card-footer{
+    display: flex;
+    justify-content: end;
+    border-top: 0;
+    margin: 0;
+    padding-top: 0;
+    font-size: 1.1rem;
+    font-weight: 400;
+    color: var(--sand);
+    font-family: 'Jura';
+}
+
+.formulaire{
+    display: flex;
+    flex-direction: column;
+    padding: 0.5rem 1rem;
+}
+
+.form-control, .user{
+    width: 100%;
+    background-color: rgb(54, 53, 50);
+    color: #fff;
+    margin-top: .5rem;
+    font-family: 'Electrolize';
+    border: 2px solid var(--border2);
+    padding-left: 0.5rem;
+    font-family: 'Jura';
+}
+
+.form-button{
+    display: block;
+    margin-top: .5rem;
+    margin-left: auto;
+    font-size: 1.3rem;
+    background-color: transparent;
+    color: var(--sand);
+}
+.form-button2{
+    display: block;
+    margin-top: .5rem;
+    margin-left: auto;
+    font-size: 1.3rem;
+    background-color: transparent;
+    color: var(--sand);
+    border-color: var(--text);
+}
+.form-button2:active{
+    border-color: var(--sand);
+}
+
+.new-button{
+    min-width: min-content;
+    margin-left: auto;
+    font-size: 1rem;
+    background-color: rgb(54, 53, 50);
+    border: 1px solid #999;
+    color: var(--sand);
+}
+
+.members{
+    grid-column: span 1;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 3rem;
+    border-left: 2px solid var(--border);
+    overflow: hidden;
+}
+/*Largeur > 768px*/
+@media screen and (min-width: 36em){
+    .members{
+        grid-column: span 1;
+        order: 3;
+    }
+}
+
+.member{
+    padding-left: 1rem;
+    font-size: 1.3rem;
+    color: var(--sand);
+    font-family: 'Electrolize';
+}
+
+.badge{
+    margin-left: 1rem;
+    font-family: 'Jura';
+}
+
