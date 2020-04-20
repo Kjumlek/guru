@@ -22,7 +22,9 @@ const sendButton = document.querySelector("#form-button");
 const messageBox = document.querySelector("#message-box");
 const scrollBox = document.querySelector(".boxView");
 const settings = document.querySelector("#settings");
-let refreshControl = setInterval(function(){displayAllTouits();}, 10000);
+// let refreshControl = setInterval(function(){displayAllTouits();}, 10000);
+let refreshControl = null;
+
 
 let idCommentBuffer = 0;
 let touitCommentActive = false;
@@ -110,7 +112,7 @@ function displayTouit(name, message, nbLike, nbCom, ts, idNote, ipNote){
     if(checkBoxOpened[idNote] === true && idNote === idCommentBuffer){
       function displayAllComs(idNote){
         const request = new XMLHttpRequest();
-        request.open("GET", customAPI + "/comments/list?message_id=" + idNote, true);
+        request.open("GET", "http://" + customAPI + "/comments/list?message_id=" + idNote, true);
         request.addEventListener("readystatechange", function() {
           if (request.readyState === XMLHttpRequest.DONE && request.status === 200) {
             const response = JSON.parse(request.responseText);
@@ -183,7 +185,7 @@ function addNote(){
     
     
     const request = new XMLHttpRequest();
-    request.open("GET", customAPI + "/list", true);
+    request.open("GET", "http://" + customAPI + "/list", true);
     request.addEventListener("readystatechange", function() {
       if(request.readyState === XMLHttpRequest.LOADING){
         messageBox.textContent = "";
@@ -205,7 +207,7 @@ function addNote(){
   if(!touitCommentActive){
     const request = new XMLHttpRequest();
     // alert(request.status);
-    request.open("POST", customAPI + "/send", true);
+    request.open("POST", "http://" + customAPI + "/send", true);
     request.setRequestHeader( "Content-type", "application/x-www-form-urlencoded");
     request.send("name=" + user.value + "&message=" + textForSend.value);
     event.preventDefault();
@@ -213,7 +215,7 @@ function addNote(){
     displayAllTouits();
   } else if(touitCommentActive){
     const request = new XMLHttpRequest();
-    request.open("POST", customAPI + "/comments/send", true);
+    request.open("POST", "http://" + customAPI + "/comments/send", true);
     request.setRequestHeader( "Content-type", "application/x-www-form-urlencoded");
     
     request.send("message_id=" + idCommentBuffer + "&name=" + user.value + "&comment=" + textForSend.value);
@@ -242,7 +244,7 @@ formulaire.addEventListener('submit', addNote);
 ///////////////////////////////////////////////////////////////////////////
 function likeATouit(idLike){
   const request = new XMLHttpRequest();
-  request.open("PUT", customAPI + "/likes/send", true);
+  request.open("PUT", "http://" + customAPI + "/likes/send", true);
   request.setRequestHeader( "Content-type", "application/x-www-form-urlencoded");
   request.send("message_id=" + idLike);
 }
@@ -253,7 +255,7 @@ function likeATouit(idLike){
 ///////////////////////////////////////////////////////////////////////////
 function dislikeATouit(idDislike){
   const request = new XMLHttpRequest();
-  request.open("DELETE", customAPI + "/likes/remove", true);
+  request.open("DELETE", "http://" + customAPI + "/likes/remove", true);
   request.setRequestHeader( "Content-type", "application/x-www-form-urlencoded");
   request.send("message_id=" + idDislike);
 }
@@ -275,7 +277,7 @@ function displayAllTouits(){
   }
   else if (customAPI !== undefined){
     const request = new XMLHttpRequest();
-    request.open("GET", customAPI + "/list", true);
+    request.open("GET", "http://" + customAPI + "/list", true);
     request.addEventListener("readystatechange", function() {
       if (request.readyState === XMLHttpRequest.DONE && request.status === 200) {
         const response = JSON.parse(request.responseText);
